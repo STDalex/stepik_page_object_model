@@ -1,0 +1,4 @@
+selenium==4.18.1
+pytest==8.0.0
+requests==2.31.0
+pytest-rerunfailures==10.2
