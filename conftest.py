@@ -1,6 +1,7 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 supported_browsers = {
     'chrome': webdriver.Chrome,
@@ -19,16 +20,16 @@ def browser(request):
     user_language = request.config.getoption("language")
     
     if browser_name == "chrome":
-        chrome_options = Options()
+        chrome_options = ChromeOptions()
         chrome_options.add_argument('--ignore-certificate-errors')
         chrome_options.add_argument('--ignore-ssl-errors')
         chrome_options.page_load_strategy = "eager"
         chrome_options.add_experimental_option('prefs', {'intl.accept_languages': user_language})
         browser = webdriver.Chrome(options=chrome_options)
     elif browser_name == "firefox":
-        fp = webdriver.FirefoxProfile()
-        fp.set_preference("intl.accept_languages", user_language)
-        browser = webdriver.Firefox(firefox_profile=fp)
+        firefox_options = FirefoxOptions()
+        firefox_options.set_preference("intl.accept_languages", user_language)
+        browser = webdriver.Firefox(options=firefox_options)
     else:
         joined_browsers = ', '.join(supported_browsers.keys())
         raise pytest.UsageError(f"--browser_name is invalid, supported browsers: {joined_browsers}")
