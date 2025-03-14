@@ -20,7 +20,7 @@ class ProductPageLocators():
     PRODUCT_PRICE_IN_ALERT = (By.XPATH, "//*[@id='messages']/div[3]/div/p[1]/strong")
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, "#messages .alert-success")
 
-class CartPageLocators():
+class CartPageLocators(BasePageLocators):
     EMPTY_BASKET_MESSAGE = (By.CSS_SELECTOR, "#content_inner > p")
     BASKET_ITEMS = (By.CSS_SELECTOR, ".basket-items")
     
