@@ -38,3 +38,10 @@ def browser(request):
     yield browser
     print("\nquit browser..")
     browser.quit()
+
+@pytest.fixture(scope="function")
+def language(request) -> str:
+    """
+    Фикстура для получения языка из параметров командной строки
+    """
+    return request.config.getoption("language")

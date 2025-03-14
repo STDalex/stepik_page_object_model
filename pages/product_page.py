@@ -35,6 +35,16 @@ class ProductPage(BasePage):
         assert self._product_price == price_in_alert, \
             f"Product price in alert '{price_in_alert}' does not match price '{self._product_price}' on the page"
         
+    def should_be_success_message(self, expected_message: str):
+        """
+        Проверяет наличие сообщения об успешном добавлении товара в корзину
+        и соответствие текста сообщения ожидаемому
+        :param expected_message: ожидаемый текст сообщения
+        """
+        success_message = self.browser.find_element(*ProductPageLocators.SUCCESS_MESSAGE)
+        assert success_message.text == expected_message, \
+            f"Success message text is incorrect. Expected: {expected_message}, got: {success_message.text}"
+
     def should_not_be_success_message(self):
         assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message is presented, but should not be"
